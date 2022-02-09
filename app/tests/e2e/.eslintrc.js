@@ -1,14 +1,15 @@
 module.exports = {
   plugins: [
-    'cypress'
+    'cypress',
   ],
   env: {
     mocha: true,
-    'cypress/globals': true
+    'cypress/globals': true,
   },
   rules: {
     strict: 'off',
-		'no-tabs': ['error', {'allowIndentationTabs': true}],
-    'indent': ['error', 'tab']
-  }
-}
+    "no-tabs": ["error", {"allowIndentationTabs": true}],
+    "indent": ["error" , "tab"],
+    semi: [2, "never"]
+  },
+};

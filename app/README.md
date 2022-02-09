@@ -1,3 +1,7 @@
+
+1. Сделать слайдер отдельным компонентом
+2. Сделать слайдер отзывчивым на свайпы
+
 # app
 
 ## Project setup
@@ -32,3 +36,4 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+

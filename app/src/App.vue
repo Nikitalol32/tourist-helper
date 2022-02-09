@@ -1,17 +1,51 @@
 <template>
-	<div id="nav">
-		<router-link to="/">Home</router-link> |
-		<router-link to="/about">About</router-link>
-	</div>
-	<router-view />
+	<Loader v-if="loading"/>
+	<Guide v-else-if="checking"/>
+	<router-view/>
 </template>
 
+<script>
+import Loader from '@/components/Loader.vue';
+import Guide from '@/components/Guide.vue';
+
+export default {
+	data() {
+		return {
+			loading: false,
+			checking: true,
+		};
+	},
+
+	components: {
+		Loader,
+		Guide,
+
+	},
+};
+
+</script>
+
 <style lang="stylus">
-#app
-	font-family Avenir, Helvetica, Arial, sans-serif
-	-webkit-font-smoothing antialiased
-	-moz-osx-font-smoothing grayscale
-	text-align center
-	color #2c3e50
-	margin-top 60px
+@font-face {
+	font-family: SFProDisplay;
+	src: url(./assets/font/SFProDisplay-Thin.woff2);
+}
+
+*
+	padding 0
+	margin 0
+	font-family SFProDisplay
+
+body, html
+	width 100%
+	height 100%
+
+	#app
+		text-align center
+		display flex
+		justify-content center
+		align-items center
+		width 100%
+		height 100%
+
 </style>
