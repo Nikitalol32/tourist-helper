@@ -1,24 +1,27 @@
 <template>
 	<Loader v-if="loading"/>
 	<Guide v-else-if="checking"/>
+	<MainMenu v-else/>
 	<router-view/>
 </template>
 
 <script>
 import Loader from '@/components/Loader.vue';
 import Guide from '@/components/Guide.vue';
+import MainMenu from '@/components/MainMenu.vue';
 
 export default {
 	data() {
 		return {
 			loading: false,
-			checking: true,
+			checking: false,
 		};
 	},
 
 	components: {
 		Loader,
 		Guide,
+		MainMenu,
 
 	},
 };
@@ -35,6 +38,7 @@ export default {
 	padding 0
 	margin 0
 	font-family SFProDisplay
+	weight 600
 
 body, html
 	width 100%

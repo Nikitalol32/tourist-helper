@@ -10,6 +10,7 @@ module.exports = {
     strict: 'off',
     "no-tabs": ["error", {"allowIndentationTabs": true}],
     "indent": ["error" , "tab"],
-    semi: [2, "never"]
+    semi: [2, "never"],
+    "global-require": 'off'
   },
 };
