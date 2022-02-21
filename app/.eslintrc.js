@@ -18,7 +18,9 @@ module.exports = {
 		"no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
 		"no-tabs": ["error", {"allowIndentationTabs": true}],
 		"indent": ["error", "tab"],
-		"global-require": 'off'
+		"global-require": 'off',
+		"no-plusplus": "off",
+		"one-var": ["error","always"],
 	},
 
 	overrides: [

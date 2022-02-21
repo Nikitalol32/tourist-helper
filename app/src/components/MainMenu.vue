@@ -1,35 +1,59 @@
 <template>
 	<div class="main-menu">
-		<MainMenuItem
-			v-for="mainMenuItem in mainMenuItems"
-			:key="mainMenuItem"
-			:title="mainMenuItem.title"
-			:icon="mainMenuItem.icon"
+		<MenuItem
+			v-for="menuItem in menuItems"
+			:key="menuItem"
+			:title="menuItem.title"
+			:icon="menuItem.icon"
+			:option="true"
+			:path="menuItem.path"
 		/>
 	</div>
 </template>
 
 <script>
-import MainMenuItem from './MainMenuItem.vue';
+import MenuItem from './MenuItem.vue';
 
 export default {
 	data() {
 		return {
-			mainMenuItems: [
-				{ icon: require('@/assets/Man.svg'), title: ['Телефоны служб', 'Попалив трудную ситуацию?'] },
-				{ icon: require('@/assets/Map.svg'), title: ['Маршруты прогулок', 'Тематически провести день?'] },
-				{ icon: require('@/assets/Girl.svg'), title: ['Выучите язык', 'Легко общаться с жителями?'] },
-				{ icon: require('@/assets/Tourism.svg'), title: ['Поездкак по городам', 'Хотите увидеть больше в России?'] },
-				{ icon: require('@/assets/PhotoCamera.svg'), title: ['Музеи города', 'Нравится духовно развиваться?'] },
+			menuItems: [
+				{
+					icon: require('@/assets/Man.svg'),
+					title: 'Телефоны служб',
+					subTitle: 'Попалив трудную ситуацию?',
+					path: { name: 'service-numbers' },
+				},
+				{
+					icon: require('@/assets/Map.svg'),
+					title: 'Маршруты прогулок',
+					subTitle: 'Тематически провести день?',
+					path: { name: '' },
+				},
+				{
+					icon: require('@/assets/Girl.svg'),
+					title: 'Выучите язык',
+					subTitle: 'Легко общаться с жителями?',
+					path: { name: '' },
+				},
+				{
+					icon: require('@/assets/Tourism.svg'),
+					title: 'Поездкак по городам',
+					subTitle: 'Хотите увидеть больше в России?',
+					path: { name: '' },
+				},
+				{
+					icon: require('@/assets/PhotoCamera.svg'),
+					title: 'Музеи города',
+					subTitle: 'Нравится духовно развиваться?',
+					path: { name: '' },
+				},
 			],
 		};
 	},
 
 	components: {
-		MainMenuItem,
-	},
-	method: {
-
+		MenuItem,
 	},
 };
 
@@ -39,9 +63,11 @@ export default {
 	.main-menu
 		display flex
 		justify-content center
-		align-items center
 		flex-direction column
 		max-width 95%
 		width 100%
-		height 100%
+
+	.main-menu > .menu-item
+		margin-bottom 25px
+
 </style>
