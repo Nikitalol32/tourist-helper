@@ -4,7 +4,7 @@
 		<div class="guide-slider">
 
 			<div class="guide-slider__text-container">
-				<div class="guide-slider__slide guide-slider__slide_back"/>
+				<div class="guide-slider__slide guide-slider__slide_back" @click = 'slideBack()'/>
 				<p
 					v-for = "(text, index) in sliderTexts"
 					class="guide-slider__text"
@@ -13,7 +13,7 @@
 				>
 					{{text.text}}
 				</p>
-				<div class="guide-slider__slide guide-slider__slide_next"/>
+				<div class="guide-slider__slide guide-slider__slide_next" @click = 'slideNext()'/>
 			</div>
 
 			<div class="guide-slider__controls">
@@ -68,8 +68,15 @@ export default {
 			this.activeSlide = index;
 		},
 		slideNext() {
+			if (this.activeSlide <= this.sliderTexts.length) {
+				this.activeSlide += 1;
+			}
 		},
 		slideBack() {
+			console.log(1);
+			if (this.activeSlide > 0) {
+				this.activeSlide -= 1;
+			}
 		},
 	},
 };
@@ -98,7 +105,7 @@ export default {
 			width 50%
 			position absolute
 			height 100%
-			z-index 3
+			z-index 1
 
 		&__slide_back
 			left 0
@@ -116,7 +123,6 @@ export default {
 		&__text
 			opacity 0
 			transition opacity ease-in-out .5s
-			z-index 4
 
 		&__text
 			height 100%
@@ -142,7 +148,7 @@ export default {
 			cursor pointer
 
 	.active-point
-		background-color red
+		background-color #6896e9
 
 	.active-text
 		opacity 1
