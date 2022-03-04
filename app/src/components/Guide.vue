@@ -4,7 +4,7 @@
 		<div class="guide-slider">
 
 			<div class="guide-slider__text-container">
-				<div class="guide-slider__slide guide-slider__slide_back" @click = 'slideBack()'/>
+				<div class="guide-slider__slide guide-slider__slide_back" @click = 'slideBack'/>
 				<p
 					v-for = "(text, index) in sliderTexts"
 					class="guide-slider__text"
@@ -13,7 +13,7 @@
 				>
 					{{text.text}}
 				</p>
-				<div class="guide-slider__slide guide-slider__slide_next" @click = 'slideNext()'/>
+				<div class="guide-slider__slide guide-slider__slide_next" @click = 'slideNext'/>
 			</div>
 
 			<div class="guide-slider__controls">

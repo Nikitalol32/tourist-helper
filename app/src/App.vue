@@ -12,7 +12,7 @@ export default {
 	data() {
 		return {
 			loading: false,
-			checking: true,
+			checking: false,
 		};
 	},
 
@@ -53,7 +53,9 @@ export default {
 		display flex
 		justify-content center
 		align-items center
+		box-sizing border-box
 		width 100%
 		height 100%
+		padding 40px 0 0 0
 
 </style>

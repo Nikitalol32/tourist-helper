@@ -3,19 +3,89 @@
 		<Title
 			:headerTitle='titlePage'
 		/>
-		<div class="services__service">
+
+		<div class="services__service services__service_medicine">
 			<h2 class="services__service-title">Медицина</h2>
 			<div class="services__slider">
 				<div class="services__slider-container">
 					<MenuItem
-						v-for="medicineItem in service.medicine"
-						@click="serviceClick()"
+						v-for="medicineItem, in service.medicine"
+						@click="serviceClick(medicineItem.id)"
 						:option="false"
 						:icon="medicineItem.icon"
 						:key="medicineItem"
-						:path="medicineItem.path"
-						:title="medicineItem.title"
+						:title="medicineItem.menuItemTitle"
 					/>
+				</div>
+			</div>
+		</div>
+
+		<div class="services__service services__service_cops">
+			<h2 class="services__service-title">Полиция</h2>
+			<div class="services__slider">
+				<div class="services__slider-container">
+					<MenuItem
+						v-for="copsItem, in service.cops"
+						@click="serviceClick(copsItem.id)"
+						:option="false"
+						:icon="copsItem.icon"
+						:key="copsItem"
+						:title="copsItem.menuItemTitle"
+					/>
+				</div>
+			</div>
+		</div>
+
+		<div class="services__service services__service_embassy">
+			<h2 class="services__service-title">Посольство</h2>
+			<div class="services__slider">
+				<div class="services__slider-container">
+					<MenuItem
+						v-for="embassyItem in service.embassy"
+						@click="serviceClick(embassyItem.id)"
+						:option="false"
+						:icon="embassyItem.icon"
+						:key="embassyItem"
+						:title="embassyItem.menuItemTitle"
+					/>
+				</div>
+			</div>
+		</div>
+
+		<div class="services__service services__service_transport">
+			<h2 class="services__service-title">Таксишки</h2>
+			<div class="services__slider">
+				<div class="services__slider-container">
+					<MenuItem
+						v-for="transportItem in service.transport"
+						@click="serviceClick(transportItem.id)"
+						:option="false"
+						:icon="transportItem.icon"
+						:key="transportItem"
+						:title="transportItem.menuItemTitle"
+					/>
+				</div>
+			</div>
+		</div>
+
+		<div class="services__service services__service-my-number">
+			<h2 class="services__service-title">Свои номера</h2>
+			<div class="services__slider">
+				<div class="services__slider-container">
+					<div
+						class="services__service-add-number"
+						@click="addNumber"
+					>
+						<img src="../assets/plus.svg" alt="plus">
+					</div>
+					<!-- <MenuItem
+						v-for="transportItem in service.medicine"
+						@click="serviceClick(transportItem.id)"
+						:option="false"
+						:icon="transportItem.icon"
+						:key="transportItem"
+						:title="transportItem.menuItemTitle"
+					/> -->
 				</div>
 			</div>
 		</div>
@@ -24,46 +94,67 @@
 
 <script>
 
-// v-for="service in services"
-// :key="service"
-// :title="service.title"
-
 import MenuItem from '../components/MenuItem.vue';
 import Title from '../components/Title.vue';
 
 export default {
+/* eslint-disable no-tabs */
 	data() {
 		return {
-			pathService: '/service-numbers',
 			titlePage: 'Телефончики служб',
+			serviceTarget: '',
 			service: {
 				medicine: [
 					{
 						menuItemTitle: 'Служба скорой помощи',
 						icon: require('@/assets/medicine.svg'),
-						title: 'Скорая помощь',
-						numbers: '112',
-						text: '',
-						reasons: ['Остановилось сердце', 'Пошла пена изо рта', 'Нужны драгсы'],
-						path: { name: this.pathService, query: { service: 'medicine', id: '01' } },
+						id: 'medicine',
 					},
 					{
 						menuItemTitle: 'Служба нескорой помощи',
 						icon: require('@/assets/medicine.svg'),
-						title: 'Скорая помощь',
-						numbers: '112',
-						text: '',
-						reasons: ['Остановилось сердце', 'Пошла пена изо рта', 'Нужны драгсы'],
-						path: { name: this.pathService, query: { service: 'medicine', id: '?=02' } },
+						id: 'medicine2',
 					},
 					{
 						menuItemTitle: 'Служба нескорой помощи',
 						icon: require('@/assets/medicine.svg'),
-						title: 'Скорая помощь',
-						numbers: '112',
-						text: '',
-						reasons: ['Остановилось сердце', 'Пошла пена изо рта', 'Нужны драгсы'],
-						path: { name: this.pathService, query: { service: 'medicine', id: '?=03' } },
+						id: 'medicine3',
+					},
+				],
+				cops: [
+					{
+						menuItemTitle: 'Полиция',
+						icon: require('@/assets/medicine.svg'),
+						id: 'cops',
+					},
+					{
+						menuItemTitle: 'Полиция',
+						icon: require('@/assets/medicine.svg'),
+						id: 'cops2',
+					},
+				],
+				embassy: [
+					{
+						menuItemTitle: 'Посольство',
+						icon: require('@/assets/medicine.svg'),
+						id: 'embassy',
+					},
+					{
+						menuItemTitle: 'Посольство',
+						icon: require('@/assets/medicine.svg'),
+						id: 'embassy2',
+					},
+				],
+				transport: [
+					{
+						menuItemTitle: 'Такси',
+						icon: require('@/assets/medicine.svg'),
+						id: 'taxi',
+					},
+					{
+						menuItemTitle: 'Такси',
+						icon: require('@/assets/medicine.svg'),
+						id: 'taxi2',
 					},
 				],
 			},
@@ -75,21 +166,25 @@ export default {
 		Title,
 	},
 
-	mounted() {
-		// this.$route.params;
-		//
-		const serviceLength = this.service;
-		for (let i = 0; i < 3; i += 1) {
-			console.log(serviceLength);
-		}
-		// not end
-	},
-
 	methods: {
-		serviceClick() {
-			console.log(this.$route.query);
+		serviceClick(id) {
+			this.$router.push(
+				{
+					query: { 'service-number': id },
+					name: 'service-number',
+				},
+			);
+		},
+		addNumber() {
+			this.$router.push(
+				{
+					query: { 'add-number': 'add' },
+					name: 'add-number',
+				},
+			);
 		},
 	},
+
 };
 
 </script>
@@ -123,10 +218,21 @@ export default {
 
 		&__slider-container > .menu-item
 			margin 0px 20px 0px 0px
-			min-width 240px
+			min-width 320px
 			width 100%
 
 		&__slider-container > .menu-item:nth-child(1)
 			margin-left 20px
+
+		&__service-add-number
+			border 1.5px dashed red
+			border-radius 15px
+			width 100%
+			height 100%
+			margin 0 20px 0 20px
+			padding 34px 34px 33px 33px
+
+	.services > .header
+		margin-left 20px
 
 </style>

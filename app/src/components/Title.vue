@@ -1,20 +1,38 @@
 <template>
 	<div class="header">
-		<button class="header__button-back" >
+		<button class="header__button-back"
+			@click = 'buttonBack'
+		>
 			<img src="../assets/back-icon.svg" alt="back">
 		</button>
-		<h2 class="header__title">{{headerTitle}}</h2>
+		<h2 v-if="headerTitle" class="header__title">{{headerTitle}}</h2>
+		<img
+			v-if="like === true"
+			src="../assets/icon-like.svg"
+			alt="heart" class="header__like"
+			@click="likeClick"
+		/>
+		<div v-else-if="titleEdit" class="title__edit">Редактировать</div>
 	</div>
 </template>
 
 <script>
 export default {
+	data() {
+		return {
+		};
+	},
+
 	props: {
 		headerTitle: String,
+		like: Boolean,
+		titleEdit: Boolean,
 	},
-	methods: {
-		buttonBackClick() {
 
+	methods: {
+		buttonBack() {
+			// eslint-disable-next-line no-restricted-globals
+			history.back();
 		},
 	},
 
@@ -25,23 +43,33 @@ export default {
 <style lang="stylus">
 	.header
 		display flex
-		justify-content flex-start
+		justify-content space-between
 		align-items center
 		flex-direction row
-		width 100%
-		padding-left 20px
 		background-color #fff
-		position fixed
 		height 35px
-		top 0
-		box-shadow 0px 1px 2px 1px rgba(0, 0, 0, 0.11)
+		position relative
 
 		&__button-back
 			background-color #11ffee00
 			border none
+			z-index 1
 
 		&__title
-			width 100%
 			text-align center
+			text-transform uppercase
+			margin 0 auto
+			font-weight 900
+			z-index 0
+
+		&__like
+			z-index 1
+
+	.red
+		background-color red
+
+	.title__edit
+		font-size 16px
+		font-weight bold
 
 </style>

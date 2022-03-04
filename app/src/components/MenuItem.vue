@@ -1,4 +1,7 @@
 <template>
+
+	<!-- Ссылка -->
+
 	<router-link v-if="path" :to="path" class="menu-item" >
 		<img v-if="icon" :srcset="icon" alt="icon" class="menu-item__icon">
 		<div class="menu-item__titles">
@@ -11,6 +14,22 @@
 			<div class="menu-item__options-point"></div>
 		</div>
 	</router-link>
+
+	<!-- Не ссылка)) -->
+
+	<div v-else class="menu-item">
+		<img v-if="icon" :srcset="icon" alt="icon" class="menu-item__icon">
+		<div class="menu-item__titles">
+			<div class="menu-item__titles-title">{{title}}</div>
+			<div v-if="subTitle" class="menu-item__titles-subtitle">{{subTitle}}</div>
+		</div>
+		<div class="menu-item__options" v-if="option">
+			<div class="menu-item__options-point"></div>
+			<div class="menu-item__options-point"></div>
+			<div class="menu-item__options-point"></div>
+		</div>
+	</div>
+
 </template>
 
 <script>

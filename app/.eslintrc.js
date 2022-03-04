@@ -20,7 +20,7 @@ module.exports = {
 		"indent": ["error", "tab"],
 		"global-require": 'off',
 		"no-plusplus": "off",
-		"one-var": ["error","always"],
+		"one-var": ["off", "always"],
 	},
 
 	overrides: [

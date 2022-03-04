@@ -4,6 +4,7 @@
 			v-for="menuItem in menuItems"
 			:key="menuItem"
 			:title="menuItem.title"
+			:subTitle="menuItem.subTitle"
 			:icon="menuItem.icon"
 			:option="true"
 			:path="menuItem.path"
