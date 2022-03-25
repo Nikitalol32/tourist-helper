@@ -11,9 +11,6 @@
 import MainMenu from '@/components/MainMenu.vue';
 
 export default {
-	data() {
-
-	},
 	components: {
 		MainMenu,
 	},
@@ -27,6 +24,6 @@ export default {
 		display flex
 		justify-content center
 		width 100%
-		height 100%
+		height 100vh
 
 </style>

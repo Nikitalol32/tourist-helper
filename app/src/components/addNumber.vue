@@ -18,8 +18,8 @@
 				<input class="add-number-item__input" type="text" placeholder="Какое-то описание">
 			</div>
 		</div>
-		<button class="add-number__btn add-number__btn-add">Добавить</button>
-		<button class="add-number__btn add-number__btn-delete">Удолить</button>
+		<button class="btn">Добавить</button>
+		<button class="btn">Удолить</button>
 	</div>
 </template>
 
@@ -76,15 +76,8 @@ export default {
 			font-size 13px
 			outline none
 
-		&__btn
-			padding 12px 0
-			font-size 18px
-			color #fff
-			background-color #59A4F2
-			margin-bottom 28px
-			border none
-			border-radius 12px
+	.add-number > .btn
+		border none
+		margin 0 0 20px 0
 
-		&__btn:last-child
-			margin 0
 </style>

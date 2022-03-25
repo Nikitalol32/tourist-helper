@@ -29,7 +29,7 @@ export default {
 					icon: require('@/assets/Map.svg'),
 					title: 'Маршруты прогулок',
 					subTitle: 'Тематически провести день?',
-					path: { name: '' },
+					path: { name: 'catalog' },
 				},
 				{
 					icon: require('@/assets/Girl.svg'),
@@ -47,7 +47,7 @@ export default {
 					icon: require('@/assets/PhotoCamera.svg'),
 					title: 'Музеи города',
 					subTitle: 'Нравится духовно развиваться?',
-					path: { name: '' },
+					path: { name: 'museums' },
 				},
 			],
 		};
@@ -68,7 +68,7 @@ export default {
 		max-width 95%
 		width 100%
 
-	.main-menu > .menu-item
+	& > .menu-item-container
 		margin-bottom 25px
 
 </style>

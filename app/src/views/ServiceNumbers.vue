@@ -98,7 +98,6 @@ import MenuItem from '../components/MenuItem.vue';
 import Title from '../components/Title.vue';
 
 export default {
-/* eslint-disable no-tabs */
 	data() {
 		return {
 			titlePage: 'Телефончики служб',
@@ -206,6 +205,7 @@ export default {
 			padding 0px 0px 20px 20px
 			text-align start
 			font-size 24px
+			letter-spacing .7px
 
 		&__slider
 			min-height 110px
@@ -216,12 +216,12 @@ export default {
 			flex-direction row
 			width max-content
 
-		&__slider-container > .menu-item
+		&__slider-container > .menu-item-container
 			margin 0px 20px 0px 0px
 			min-width 320px
 			width 100%
 
-		&__slider-container > .menu-item:nth-child(1)
+		&__slider-container > .menu-item-container:nth-child(1)
 			margin-left 20px
 
 		&__service-add-number

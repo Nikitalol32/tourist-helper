@@ -61,6 +61,7 @@ export default {
 			margin 0 auto
 			font-weight 900
 			z-index 0
+			letter-spacing 1px
 
 		&__like
 			z-index 1

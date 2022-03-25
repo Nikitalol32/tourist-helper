@@ -1,32 +1,34 @@
 <template>
 
-	<!-- Ссылка -->
+	<div class="menu-item-container">
+		<!-- Ссылка -->
 
-	<router-link v-if="path" :to="path" class="menu-item" >
-		<img v-if="icon" :srcset="icon" alt="icon" class="menu-item__icon">
-		<div class="menu-item__titles">
-			<div class="menu-item__titles-title">{{title}}</div>
-			<div v-if="subTitle" class="menu-item__titles-subtitle">{{subTitle}}</div>
-		</div>
-		<div class="menu-item__options" v-if="option">
-			<div class="menu-item__options-point"></div>
-			<div class="menu-item__options-point"></div>
-			<div class="menu-item__options-point"></div>
-		</div>
-	</router-link>
+		<router-link v-if="path" :to="path" class="menu-item" >
+			<img v-if="icon" :srcset="icon" alt="icon" class="menu-item__icon">
+			<div class="menu-item__titles">
+				<div class="menu-item__titles-title">{{title}}</div>
+				<div v-if="subTitle" class="menu-item__titles-subtitle">{{subTitle}}</div>
+			</div>
+			<div class="menu-item__options" v-if="option">
+				<div class="menu-item__options-point"></div>
+				<div class="menu-item__options-point"></div>
+				<div class="menu-item__options-point"></div>
+			</div>
+		</router-link>
 
-	<!-- Не ссылка)) -->
+		<!-- Не ссылка)) -->
 
-	<div v-else class="menu-item">
-		<img v-if="icon" :srcset="icon" alt="icon" class="menu-item__icon">
-		<div class="menu-item__titles">
-			<div class="menu-item__titles-title">{{title}}</div>
-			<div v-if="subTitle" class="menu-item__titles-subtitle">{{subTitle}}</div>
-		</div>
-		<div class="menu-item__options" v-if="option">
-			<div class="menu-item__options-point"></div>
-			<div class="menu-item__options-point"></div>
-			<div class="menu-item__options-point"></div>
+		<div v-else class="menu-item">
+			<img v-if="icon" :srcset="icon" alt="icon" class="menu-item__icon">
+			<div class="menu-item__titles">
+				<div class="menu-item__titles-title">{{title}}</div>
+				<div v-if="subTitle" class="menu-item__titles-subtitle">{{subTitle}}</div>
+			</div>
+			<div class="menu-item__options" v-if="option">
+				<div class="menu-item__options-point"></div>
+				<div class="menu-item__options-point"></div>
+				<div class="menu-item__options-point"></div>
+			</div>
 		</div>
 	</div>
 
@@ -75,10 +77,11 @@ export default {
 			font-size 16px
 			font-weight 600
 			font-style normal
-			letter-spacing 1px
+			letter-spacing 1.7px
 
 		&__titles-subtitle
 			font-size 12px
+			letter-spacing .7px
 
 		&__options
 			display flex

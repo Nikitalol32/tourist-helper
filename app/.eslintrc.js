@@ -21,6 +21,7 @@ module.exports = {
 		"global-require": 'off',
 		"no-plusplus": "off",
 		"one-var": ["off", "always"],
+		"vue/no-deprecated-v-on-native-modifier": "off"
 	},
 
 	overrides: [

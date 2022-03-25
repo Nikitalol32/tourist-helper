@@ -114,6 +114,7 @@ export default {
 			width 100%
 			text-align start
 			font-weight 600
+			letter-spacing .7px
 
 		&-number
 			margin-top 32px
