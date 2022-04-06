@@ -9,6 +9,12 @@ import StepCart from '../components/StepCart.vue';
 import Museums from '../views/Museums.vue';
 import Maps from '../components/Maps.vue';
 import Player from '../components/Player.vue';
+import Phrases from '../components/Phrases.vue';
+import PhraseCart from '../components/PhraseCart.vue';
+import Situations from '../views/Situations.vue';
+import CityChoose from '../views/CityChoose.vue';
+import ProcessBuying from '../components/ProcessBuying.vue';
+import Music from '../components/Music.vue';
 
 const routes = [
 	// Главная
@@ -70,6 +76,42 @@ const routes = [
 		path: '/player',
 		name: 'player',
 		component: Player,
+	},
+	// Выбор ситуации
+	{
+		path: '/situations',
+		name: 'situations',
+		component: Situations,
+	},
+	// Список фраз
+	{
+		path: '/phrases',
+		name: 'phrases',
+		component: Phrases,
+	},
+	// Список фраз
+	{
+		path: '/phrase-cart',
+		name: 'phrase-cart',
+		component: PhraseCart,
+	},
+	// Выбор города
+	{
+		path: '/city-choose',
+		name: 'city-choose',
+		component: CityChoose,
+	},
+	// Выбор города
+	{
+		path: '/process-buying',
+		name: 'process-buying',
+		component: ProcessBuying,
+	},
+	// Аудио
+	{
+		path: '/music',
+		name: 'music',
+		component: Music,
 	},
 ];
 

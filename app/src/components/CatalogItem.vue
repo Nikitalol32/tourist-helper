@@ -57,10 +57,6 @@ export default {
 			);
 		},
 	},
-
-	mounted() {
-		console.log(this.titlePage);
-	},
 };
 
 </script>
@@ -69,7 +65,6 @@ export default {
 	.catalog-item
 		min-width 300px
 		display flex
-		height 280px
 		flex-direction column
 		margin-right 20px
 		padding 16px 16px 20px 16px

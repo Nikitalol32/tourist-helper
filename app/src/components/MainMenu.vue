@@ -35,13 +35,13 @@ export default {
 					icon: require('@/assets/Girl.svg'),
 					title: 'Выучите язык',
 					subTitle: 'Легко общаться с жителями?',
-					path: { name: '' },
+					path: { name: 'situations' },
 				},
 				{
 					icon: require('@/assets/Tourism.svg'),
 					title: 'Поездкак по городам',
 					subTitle: 'Хотите увидеть больше в России?',
-					path: { name: '' },
+					path: { name: 'city-choose' },
 				},
 				{
 					icon: require('@/assets/PhotoCamera.svg'),
@@ -65,7 +65,7 @@ export default {
 		display flex
 		justify-content center
 		flex-direction column
-		max-width 95%
+		margin 0 20px
 		width 100%
 
 	& > .menu-item-container

@@ -1,5 +1,8 @@
 <template>
-	<div class="services">
+	<div
+		class="services"
+		ref="services"
+	>
 		<Title
 			:headerTitle='titlePage'
 		/>
@@ -78,17 +81,22 @@
 					>
 						<img src="../assets/plus.svg" alt="plus">
 					</div>
-					<!-- <MenuItem
-						v-for="transportItem in service.medicine"
-						@click="serviceClick(transportItem.id)"
+					<MenuItem
+						v-for="selfNumberItem in service.selfNumbers"
+						:key="selfNumberItem"
+						@click="serviceClick(selfNumberItem.id)"
 						:option="false"
-						:icon="transportItem.icon"
-						:key="transportItem"
-						:title="transportItem.menuItemTitle"
-					/> -->
+						:icon="selfNumberItem.icon"
+						:title="selfNumberItem.menuItemTitle"
+					/>
 				</div>
 			</div>
 		</div>
+		<AddNumber
+			:class="'add-number_' + status"
+			ref="addNumber"
+			@newNumber="AddNewNumber"
+		/>
 	</div>
 </template>
 
@@ -96,6 +104,7 @@
 
 import MenuItem from '../components/MenuItem.vue';
 import Title from '../components/Title.vue';
+import AddNumber from '../components/AddNumber.vue';
 
 export default {
 	data() {
@@ -156,13 +165,17 @@ export default {
 						id: 'taxi2',
 					},
 				],
+				selfNumbers: [],
 			},
+			status: 'close',
+
 		};
 	},
 
 	components: {
 		MenuItem,
 		Title,
+		AddNumber,
 	},
 
 	methods: {
@@ -175,12 +188,13 @@ export default {
 			);
 		},
 		addNumber() {
-			this.$router.push(
-				{
-					query: { 'add-number': 'add' },
-					name: 'add-number',
-				},
-			);
+			this.status = 'open';
+			this.$refs.services.classList.add('closed');
+		},
+		AddNewNumber(newNumber, status) {
+			this.service.selfNumbers.push(newNumber);
+			this.status = status;
+			this.$refs.services.classList.remove('closed');
 		},
 	},
 
@@ -193,46 +207,61 @@ export default {
 		max-width 100%
 		width 100%
 		height 100%
+		z-index 1
+		position relative
 
 		&__service
 			display flex
 			flex-direction column
 			max-height 150px
 			overflow hidden
-			margin-top 50px
+			margin-bottom 50px
 
-		&__service-title
-			padding 0px 0px 20px 20px
-			text-align start
-			font-size 24px
-			letter-spacing .7px
+			&-title
+				margin 0px 0px 20px 20px
+				text-align start
+				font-size 24px
+				letter-spacing .7px
+
+			&-add-number
+				border 1.5px dashed red
+				border-radius 15px
+				width 100%
+				height 100%
+				margin 0 20px 0 20px
+				padding 34px 34px 33px 33px
 
 		&__slider
 			min-height 110px
 			overflow-x scroll
 
-		&__slider-container
-			display flex
-			flex-direction row
-			width max-content
+			&-container
+				display flex
+				flex-direction row
+				width max-content
 
-		&__slider-container > .menu-item-container
-			margin 0px 20px 0px 0px
-			min-width 320px
-			width 100%
+			&-container > .menu-item-container
+				margin 0px 20px 0px 0px
+				min-width 320px
+				width 100%
 
-		&__slider-container > .menu-item-container:nth-child(1)
-			margin-left 20px
-
-		&__service-add-number
-			border 1.5px dashed red
-			border-radius 15px
-			width 100%
-			height 100%
-			margin 0 20px 0 20px
-			padding 34px 34px 33px 33px
+			&-container > .menu-item-container:nth-child(1)
+				margin-left 20px
 
 	.services > .header
 		margin-left 20px
+
+	.services .closed
+		overflow hidden
+
+	.add-number_close
+		display none
+
+	.add-number_open
+		display flex
+		position fixed
+		z-index 10
+		top 0
+		left 0
 
 </style>

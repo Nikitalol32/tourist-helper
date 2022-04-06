@@ -8,18 +8,24 @@
 import Loader from '@/components/Loader.vue';
 import Guide from '@/components/Guide.vue';
 
+import Emitter from 'eventemitter2';
+
 export default {
 	components: {
 		Loader,
 		Guide,
 	},
 
-	beforeCreate() {
-		console.log('dont ready');
-	},
+	data() {
+		return {
+			emitter: Object.freeze(new Emitter({
+				// set this to `true` to use wildcards
+				wildcard: true,
 
-	mounted() {
-		console.log('ready');
+				// the delimiter used to segment namespaces
+				delimiter: '.',
+			})),
+		};
 	},
 
 };
@@ -67,5 +73,27 @@ export default {
 
 		&:last-child
 			margin-bottom 40px
+
+	.input-container
+		display flex
+		flex-direction row
+		padding 13px
+		border-radius 15px
+		border 1px solid #C4C4C4
+		margin-bottom 40px
+		align-items center
+
+	.input
+		width 100%
+		height 17px
+		border none
+		font-size 16px
+		letter-spacing 1px
+		font-weight bold
+		outline none
+
+	.search-icon
+		width 17px
+		height @width
 
 </style>

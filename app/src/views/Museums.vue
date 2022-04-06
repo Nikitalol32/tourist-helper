@@ -18,6 +18,7 @@
 					:title="museumItem.title"
 					:subTitle="museumItem.subTitle"
 					:id="museumItem.id"
+					:cartTitle="cartTitle"
 				/>
 			</div>
 		</div>
@@ -41,6 +42,7 @@ export default {
 			titlePage: 'Каталог музеев',
 			random: false,
 			typePage: '',
+			cartTitle: 'Карта музеев',
 			museumsData: [
 				{
 					title: 'Архитектура',

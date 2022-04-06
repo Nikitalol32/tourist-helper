@@ -24,6 +24,6 @@ export default {
 		display flex
 		justify-content center
 		width 100%
-		height 100vh
+		height calc(100vh - 40px)
 
 </style>

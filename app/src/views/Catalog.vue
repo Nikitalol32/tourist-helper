@@ -16,6 +16,7 @@
 					:title="catalogItem.title"
 					:subTitle="catalogItem.subTitle"
 					:id="catalogItem.id"
+					:cartTitle="'Карточка маршрута'"
 				/>
 			</div>
 		</div>
@@ -188,7 +189,6 @@ export default {
 		display flex
 		flex-direction column
 		height 100%
-		margin 0 20px
 		width 100%
 
 		&__slider
@@ -197,7 +197,7 @@ export default {
 			overflow hidden
 			height 335px
 
-		&>.header
+		& > .header
 			margin 0 0 20px 20px
 
 		&__slider-title

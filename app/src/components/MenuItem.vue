@@ -73,29 +73,29 @@ export default {
 			width 100%
 			line-height 16px
 
-		&__titles-title
-			font-size 16px
-			font-weight 600
-			font-style normal
-			letter-spacing 1.7px
+			&-title
+				font-size 16px
+				font-weight 600
+				font-style normal
+				letter-spacing 1.7px
 
-		&__titles-subtitle
-			font-size 12px
-			letter-spacing .7px
+			&-subtitle
+				font-size 12px
+				letter-spacing .7px
 
 		&__options
 			display flex
-			justify-content space-evenly
 			flex-direction column
 			align-items center
 			height 100%
 			cursor crosshair
 			width 15px
 
-		&__options-point
-			background-color #fff
-			width 5px
-			height @width
-			border-radius 50%
+			&-point
+				background-color #fff
+				width 5px
+				height @width
+				border-radius 50%
+				margin-bottom 3px
 
 </style>

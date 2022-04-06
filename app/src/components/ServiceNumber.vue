@@ -109,7 +109,7 @@ export default {
 		margin 0 20px
 
 		&__title
-			margin-top 42px
+			margin-bottom 42px
 			font-size 36px
 			width 100%
 			text-align start
@@ -117,7 +117,7 @@ export default {
 			letter-spacing .7px
 
 		&-number
-			margin-top 32px
+			margin-bottom 32px
 			display flex
 			justify-content space-between
 			flex-wrap wrap
@@ -137,7 +137,7 @@ export default {
 				font-weight bold
 
 		&__text
-			margin-top 32px
+			margin-bottom 32px
 			font-size 16px
 			line-height 140%
 			text-align start
@@ -146,7 +146,7 @@ export default {
 
 		&__reason
 			font-weight bold
-			margin-top 32px
+			margin-bottom 32px
 
 			&-title
 				font-weight bold
@@ -161,12 +161,12 @@ export default {
 				flex-direction column
 
 				&_item
-					margin-top 15px
+					margin-bottom 15px
 					font-size 16px
 					letter-spacing: .8px
 					box-sizing border-box
 
-				&_item:nth-child(1)
-					margin-top 0
+				&_item:last-child
+					margin-bottom 0
 
 </style>

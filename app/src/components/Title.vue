@@ -12,7 +12,7 @@
 			alt="heart" class="header__like"
 			@click="likeClick"
 		/>
-		<div v-else-if="titleEdit" class="title__edit">Редактировать</div>
+		<div v-else-if="titleEdit" class="header__edit">Редактировать</div>
 	</div>
 </template>
 
@@ -27,12 +27,17 @@ export default {
 		headerTitle: String,
 		like: Boolean,
 		titleEdit: Boolean,
+		closePlayer: Function,
 	},
 
 	methods: {
 		buttonBack() {
+			if (this.closePlayer) {
+				this.closePlayer();
+			} else {
 			// eslint-disable-next-line no-restricted-globals
-			history.back();
+				history.back();
+			}
 		},
 	},
 
@@ -49,6 +54,7 @@ export default {
 		background-color #fff
 		height 35px
 		position relative
+		margin-bottom 40px
 
 		&__button-back
 			background-color #11ffee00
@@ -65,6 +71,11 @@ export default {
 
 		&__like
 			z-index 1
+
+		&__edit
+			font-size 16px
+			font-weight bold
+			letter-spacing 1px
 
 	.red
 		background-color red
