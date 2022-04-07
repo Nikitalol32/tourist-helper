@@ -86,6 +86,13 @@ export default {
 					text: description,
 				};
 				this.$emit('newNumber', newNumber, 'close');
+
+				inputs.forEach((input, i) => {
+					inputsContainer[i].classList.remove('input-ready');
+					// eslint-disable-next-line no-param-reassign
+					input.value = '';
+					console.log(input);
+				});
 			}
 
 			// if (inputsReady.length === inputs.length) {

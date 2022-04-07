@@ -12,47 +12,48 @@
 			<div class="player__audio-image-container">
 				<img :src="image" alt="обложка трека" class="player__audio-image">
 			</div>
-			<div class="player__progress">
+			<div ref="progress" class="player__progress" @click="onProgress">
 				<div ref="slider" class="player__progress-slider" style="left:0%"></div>
-				<div class="player__progress-line"></div>
+				<div ref="progressLine" class="player__progress-line"></div>
 			</div>
 			<div class="player__timer">
 				<div class="player__timer-duration">{{currentTime}}</div>
 				<div class="player__timer-duration">{{duration}}</div>
 			</div>
 			<div class="player__buttons">
-				<img
+				<button
 					@click="prevSong"
 					src="../assets/prev.svg"
-					class="player__buttons_prev"
+					class="player__buttons-button player__buttons_prev"
 					ref="prev"
-				>
-				<img
+				/>
+				<button
 					v-if="status === 'paused'"
 					@click="playSong"
 					src="../assets/play.svg"
-					class="player__buttons_playing"
+					class="player__buttons-button player__buttons_playing"
 					ref="play"
-				>
-				<img
+				/>
+				<button
 					v-if="status === 'playing'"
 					@click="pauseSong"
 					src="../assets/pause.svg"
-					class="player__buttons_playing"
+					class="player__buttons-button player__buttons_paused"
 					ref="play"
-				>
-				<img
+				/>
+				<button
 					@click="nextSong"
 					src="../assets/next.svg"
-					class="player__buttons_next"
+					class="player__buttons-button player__buttons_next"
 					ref="next"
-				>
+				/>
 			</div>
 			<audio
 				class="player__audio"
 				src=""
 				ref="audio"
 				@timeupdate="onTimeupdate"
+				@ended="onEnded"
 			/>
 		</div>
 	</div>
@@ -99,13 +100,41 @@ export default {
 		},
 
 		prevSong() {
-			//
+			if (this.audioNow !== 0) {
+				const
+					thisAudio = this.$refs.audio;
+
+				this.pauseSong();
+				thisAudio.currentTime = thisAudio.duration;
+				setTimeout(() => {
+					this.$refs.slider.style = 'left: 0';
+					this.currentTime = '0:00';
+				}, 600);
+				this.audioNow -= 1;
+				this.title = this.playList[this.audioNow].title;
+				this.image = this.playList[this.audioNow].image;
+				thisAudio.setAttribute('src', this.playList[this.audioNow].audio);
+				this.status = 'playing';
+				thisAudio.play();
+			}
 		},
 
 		playSong() {
 			this.status = 'playing';
 			this.$refs.audio.play();
 			this.$root.emitter.emit('player.play');
+			/* eslint-disable no-tabs */
+			// if (this.audioNow === 0) {
+			// 	this.$refs.prev.style = 'opacity: .7';
+			// } else {
+			// 	this.$refs.prev.style = 'opacity: 1';
+			// }
+
+			// if (this.audioNow < this.playList.length - 1) {
+			// 	this.$refs.next.style = 'opacity: 1';
+			// } else {
+			// 	this.$refs.next.style = 'opacity: .7';
+			// }
 		},
 
 		pauseSong() {
@@ -115,7 +144,26 @@ export default {
 		},
 
 		nextSong() {
+			if (this.audioNow < this.playList.length - 1) {
+				const
+					thisAudio = this.$refs.audio;
 
+				this.pauseSong();
+				thisAudio.currentTime = thisAudio.duration;
+				setTimeout(() => {
+					this.$refs.slider.style = 'left: 0';
+					this.currentTime = '0:00';
+				}, 600);
+				this.audioNow += 1;
+				this.title = this.playList[this.audioNow].title;
+				this.image = this.playList[this.audioNow].image;
+				thisAudio.setAttribute('src', this.playList[this.audioNow].audio);
+				this.status = 'playing';
+				thisAudio.play();
+				this.$refs.next.style = 'opacity: 1';
+			} else {
+				this.$refs.next.style = 'opacity: .7';
+			}
 		},
 
 		onTimeupdate() {
@@ -132,6 +180,30 @@ export default {
 				percentProgress = Number((fullCurrentTime / fullDuration).toFixed(2)) * 100;
 
 			progressSlider.style = `left: ${percentProgress > 90 ? 90 : percentProgress}%`;
+		},
+
+		onEnded() {
+			this.status = 'paused';
+		},
+		/* eslint-disable no-unused-vars */
+		/* eslint-disable max-len */
+		onProgress(event) {
+			const
+				thisAudio = this.$refs.audio,
+				progressBar = this.$refs.progress,
+				audioSlider = this.$refs.slider,
+				audioDuration = thisAudio.duration,
+				width = progressBar.clientWidth,
+				// audioSlider.clientWidth / 2 - это половина от слайдера, чтобы при нажатии по прогрессу слайдер вставал по середине курсора
+				clickX = event.offsetX - (audioSlider.clientWidth / 2),
+				percentProgress = (clickX / width) * 100;
+
+			if (event.target === progressBar || event.target === this.$refs.progressLine) {
+				console.log('~ clickX', event);
+
+				audioSlider.style = `left: ${percentProgress > 90 ? 90 : percentProgress}%`;
+				thisAudio.currentTime = (percentProgress / 100) * audioDuration;
+			} else console.log('жопа');
 		},
 	},
 
@@ -246,21 +318,31 @@ export default {
 			justify-content space-between
 			align-items center
 
+			&-button
+				background-repeat no-repeat
+				background-size cover
+				background-color transparent
+				border none
+
 			&_prev
 				width 30px
 				height @width
+				background-image url('../assets/prev.svg')
 
 			&_playing
 				width 67px
 				height @width
+				background-image url('../assets/play.svg')
 
 			&_paused
 				width 67px
 				height @width
+				background-image url('../assets/pause.svg')
 
 			&_next
 				width 30px
 				height @width
+				background-image url('../assets/next.svg')
 
 	.open
 		display flex
