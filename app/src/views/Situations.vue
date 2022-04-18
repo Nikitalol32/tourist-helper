@@ -73,7 +73,7 @@ export default {
 			margin-bottom 40px
 
 			&-item
-				background-color #59A4F2
+				background-color var(--blue)
 				display flex
 				flex-direction column
 				justify-content center
@@ -92,5 +92,9 @@ export default {
 					text-align center
 					max-width 80px
 					width 100%
+
+	@media (max-width: 371px)
+		.situations__container
+			justify-content center
 
 </style>

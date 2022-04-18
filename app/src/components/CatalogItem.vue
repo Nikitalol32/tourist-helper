@@ -68,7 +68,7 @@ export default {
 		flex-direction column
 		margin-right 20px
 		padding 16px 16px 20px 16px
-		background-color #59A4F2
+		background-color var(--blue)
 		border-radius 15px
 		color #fff
 		box-sizing border-box

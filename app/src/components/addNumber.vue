@@ -1,7 +1,9 @@
+/* eslint-disable no-useless-escape */
 <template>
 	<div class="add-number">
 		<Title
 			:titleEdit = "titleEdit"
+			:closeAddNumber="closeAddNumber"
 		>
 		</Title>
 		<div class="add-number-items">
@@ -16,7 +18,10 @@
 					placeholder=" Такси"
 				>
 			</div>
-			<div class="add-number-item add-number__number">
+			<div
+				class="add-number-item add-number__number"
+				ref="inputNumberBox"
+			>
 				<h2
 					class="add-number-item__title"
 				>Телефон</h2>
@@ -25,6 +30,8 @@
 					class="add-number-item__input"
 					type="text"
 					placeholder="8915342353"
+					v-model="number"
+					@input="checkNumber(number)"
 				>
 			</div>
 			<div class="add-number-item add-number__description">
@@ -51,6 +58,7 @@ export default {
 	data() {
 		return {
 			titleEdit: true,
+			number: '',
 		};
 	},
 
@@ -60,10 +68,17 @@ export default {
 		addButton() {
 			const
 				naming = this.$refs.inputNaming.value,
-				number = this.$refs.inputNumber.value,
+				addNumber = this.$refs.inputNumber.value,
 				description = this.$refs.inputDescription.value,
 				inputs = document.querySelectorAll('.add-number-item__input'),
-				inputsContainer = document.querySelectorAll('.add-number-item');
+				inputsContainer = document.querySelectorAll('.add-number-item'),
+				userData = JSON.parse(localStorage.getItem('userData'));
+
+			function userDataLength() {
+				return Object.keys(userData).length;
+			}
+
+			console.log(this.checkNumber('89293281123'));
 
 			inputs.forEach((input, i) => {
 				if (input.value === '') {
@@ -79,25 +94,70 @@ export default {
 				inputReady = Array.from(inputsContainer).filter((container) => container.classList.contains('input-ready'));
 
 			if (inputReady.length === inputs.length) {
-				const newNumber = {
-					icon: require('../assets/medicine.svg'),
-					menuItemTitle: naming,
-					numbers: number,
-					text: description,
-				};
-				this.$emit('newNumber', newNumber, 'close');
+				// запись информации для нового номера
+				if (userData) {
+					userData[`selfNumber${userDataLength()}`] = {
+						icon: require('../assets/medicine.svg'),
+						menuItemTitle: this.firstUpper(naming),
+						title: this.firstUpper(naming),
+						number: addNumber,
+						text: this.firstUpper(description),
+						reasons: ['Свои ризоны', 'Свои ризоны', 'Свои ризоны', 'Свои ризоны'],
+						id: `selfNumber${userDataLength()}`,
+					};
 
+					localStorage.setItem('userData', JSON.stringify(userData));
+				} else {
+					const setUserData = {
+						selfNumber0: {
+							icon: require('../assets/medicine.svg'),
+							menuItemTitle: this.firstUpper(naming),
+							title: this.firstUpper(naming),
+							number: addNumber,
+							text: this.firstUpper(description),
+							reasons: ['Свои ризоны', 'Свои ризоны', 'Свои ризоны', 'Свои ризоны'],
+							id: 'selfNumber0',
+						},
+					};
+					localStorage.setItem('userData', JSON.stringify(setUserData));
+				}
+
+				// очищение инпутов
 				inputs.forEach((input, i) => {
 					inputsContainer[i].classList.remove('input-ready');
 					// eslint-disable-next-line no-param-reassign
 					input.value = '';
-					console.log(input);
 				});
+
+				this.$emit('closed', 'close');
 			}
 
 			// if (inputsReady.length === inputs.length) {
 			// 	console.log(inputsReady);
 			// }
+		},
+		firstUpper(string) {
+			const
+				newString = string.replace(string[0], string[0].toUpperCase());
+			return newString;
+		},
+
+		checkNumber(number) {
+			const
+			// eslint-disable-next-line no-useless-escape
+				re = /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
+				input = this.$refs.inputNumberBox;
+			if (number.match(re)) {
+				input.classList.add('input-ready');
+				input.classList.remove('input-clear');
+			} else {
+				input.classList.remove('input-ready');
+				input.classList.add('input-clear');
+			}
+		},
+
+		closeAddNumber() {
+			this.$emit('closed', 'close');
 		},
 	},
 
@@ -116,6 +176,7 @@ export default {
 		height 100%
 		background-color #fff
 		padding-top 40px
+		overflow-y scroll
 
 		&-items
 			width calc(100% - 40px)

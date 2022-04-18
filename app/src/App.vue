@@ -10,6 +10,8 @@ import Guide from '@/components/Guide.vue';
 
 import Emitter from 'eventemitter2';
 
+import Router from './router';
+
 export default {
 	components: {
 		Loader,
@@ -24,8 +26,17 @@ export default {
 
 				// the delimiter used to segment namespaces
 				delimiter: '.',
+
+				// set this to `true` if you want to emit the removeListener event
+				removeListener: true,
 			})),
 		};
+	},
+
+	mounted() {
+		Router.beforeEach(() => {
+			document.body.style = 'overflow-y: unset';
+		});
 	},
 
 };
@@ -47,6 +58,10 @@ export default {
 		width 100%
 		height 100%
 
+	body
+		--blue #59A4F2
+		--red #F1564A
+
 	#app
 		text-align center
 		display flex
@@ -62,14 +77,14 @@ export default {
 		border-radius 10px
 		margin 0 20px 20px 20px
 		letter-spacing 1.2px
-		background-color #59a4f2
+		background-color var(--blue)
 		text-align center
 		font-weight bold
 		color #fff
 		font-size 16px
 
 		&-red
-			background-color #f1564a
+			background-color var(--red)
 
 		&:last-child
 			margin-bottom 40px
@@ -96,4 +111,6 @@ export default {
 		width 17px
 		height @width
 
+	.unviewable
+		display none
 </style>

@@ -94,6 +94,19 @@ export default {
 
 	beforeMount() {
 		this.id = this.$route.query['service-number'];
+		if (localStorage.userData) {
+			const
+				// eslint-disable-next-line no-unused-vars
+				parseUserData = JSON.parse(localStorage.getItem('userData')),
+				userDataKeys = Object.keys(parseUserData);
+
+			console.log(userDataKeys);
+			userDataKeys.forEach((userData) => {
+			// eslint-disable-next-line no-tabs
+				console.log('user', userData, parseUserData[userData]);
+				this.services[userData] = parseUserData[userData];
+			});
+		}
 	},
 
 };
@@ -128,7 +141,7 @@ export default {
 
 			&__button
 				border-radius 15px
-				background-color red
+				background-color var(--red)
 				padding 12px 20px
 				color white
 				font-size 21px

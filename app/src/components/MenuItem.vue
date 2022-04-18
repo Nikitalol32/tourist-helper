@@ -54,7 +54,7 @@ export default {
 		align-items center
 		padding 21.5px 24px 20px 25.5px
 		border-radius 12px
-		background-color #59A4F2
+		background-color var(--blue)
 		width 100%
 		color #fff
 		box-sizing border-box

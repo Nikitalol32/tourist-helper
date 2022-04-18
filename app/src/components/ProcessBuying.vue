@@ -362,11 +362,11 @@ export default {
 					left 16.4px
 					width 8px
 					height 100%
-					background-color #59A4F2
+					background-color var(--blue)
 
 				&-point
 					border-radius 50%
-					background-color #59A4F2
+					background-color var(--blue)
 					width 40px
 					height @width
 					margin-right 21px

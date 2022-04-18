@@ -39,7 +39,7 @@ export default {
 				},
 				{
 					icon: require('@/assets/Tourism.svg'),
-					title: 'Поездкак по городам',
+					title: 'Поездка по городам',
 					subTitle: 'Хотите увидеть больше в России?',
 					path: { name: 'city-choose' },
 				},

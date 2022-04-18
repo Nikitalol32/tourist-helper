@@ -96,6 +96,7 @@
 			:class="'add-number_' + status"
 			ref="addNumber"
 			@newNumber="AddNewNumber"
+			@closed="closedAddNumber"
 		/>
 	</div>
 </template>
@@ -196,6 +197,26 @@ export default {
 			this.status = status;
 			this.$refs.services.classList.remove('closed');
 		},
+		closedAddNumber(status) {
+			this.status = status;
+			this.$refs.services.classList.remove('closed');
+			this.parseUserData();
+		},
+		parseUserData() {
+			const
+				parseUserData = JSON.parse(localStorage.getItem('userData')),
+				userDataKeys = Object.keys(parseUserData);
+
+			userDataKeys.forEach((userData, i) => {
+				this.service.selfNumbers[i] = parseUserData[userData];
+			});
+		},
+	},
+
+	beforeMount() {
+		if (localStorage.userData) {
+			this.parseUserData();
+		}
 	},
 
 };

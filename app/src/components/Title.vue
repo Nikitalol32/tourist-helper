@@ -28,12 +28,16 @@ export default {
 		like: Boolean,
 		titleEdit: Boolean,
 		closePlayer: Function,
+		closeAddNumber: Function,
 	},
 
 	methods: {
 		buttonBack() {
 			if (this.closePlayer) {
 				this.closePlayer();
+			} else if (this.closeAddNumber) {
+				this.closeAddNumber();
+				console.log(1);
 			} else {
 			// eslint-disable-next-line no-restricted-globals
 				history.back();

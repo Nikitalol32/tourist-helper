@@ -89,7 +89,7 @@
 				></audio>
 			</div>
 		</div>
-		<div class="btn" @click="inWays">В путь</div>
+		<div class="btn" @click="inWays" type="inWays">В путь</div>
 		<div
 			class="btn"
 			v-if="random"
@@ -752,7 +752,7 @@ export default {
 					&-stick
 						width 2px
 						height 42px
-						background-color #59A4F2
+						background-color var(--blue)
 						margin-left 32px
 
 					&:first-child
@@ -774,7 +774,7 @@ export default {
 					&-point
 						width 20px
 						height 20px
-						background-color #59A4F2
+						background-color var(--blue)
 						border-radius 50%
 						margin-right 24px
 

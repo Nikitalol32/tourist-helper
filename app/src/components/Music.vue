@@ -122,26 +122,25 @@ export default {
 
 			this.pause();
 		},
-	},
 
-	mounted() {
-		this.$root.emitter.on('player.close', (status, currentTime, songName) => {
-			console.log('songName', songName);
-			console.log('musci', this.music);
+		dataMusic(status, currentTime, songName) {
 			if (status === 'playing' && this.music === songName) {
 				this.setTime(currentTime);
 				this.play();
-				console.log('123123');
 			}
-		});
-
-		this.$root.emitter.on('player.play', () => {
-			this.pause();
-		});
-		console.log(this.$refs);
+		},
 	},
 
-	updated() {
+	mounted() {
+		this.$root.emitter.on('player.close', this.dataMusic);
+
+		this.$root.emitter.on('player.play', this.pause);
+	},
+
+	beforeUnmount() {
+		console.log('beforeUnmounted');
+		this.$root.emitter.removeListener('player.close', this.dataMusic);
+		this.$root.emitter.removeListener('player.play', this.pause);
 	},
 };
 

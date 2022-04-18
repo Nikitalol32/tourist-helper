@@ -4,7 +4,12 @@
 			:headerTitle="titlePage"
 		></Title>
 		<div class="input-container">
-			<input type="text" class="input">
+			<input
+				v-model="phrase"
+				type="text"
+				class="input"
+				@input="inputPhrase(phrase)"
+			>
 			<img
 				src="../assets/search.svg"
 				alt="иконка поиска"
@@ -16,10 +21,15 @@
 				class="phrases__phrase"
 				v-for="(phrase, i) in phrasesData"
 				:key="phrase"
+				ref="phraseContainers"
 			>
 				<div class="phrases__phrase-container">
 					<div class="phrases__phrase-container-content">
-						<div class="phrases__phrase-text" @click="phraseClick(i)">{{phrase}}</div>
+						<div
+							class="phrases__phrase-text"
+							@click="phraseClick(i)"
+							ref="title"
+						>{{phrase}}</div>
 						<div class="phrases__phrase-buttons">
 							<button class="phrases__phrase-btn">
 								transport
@@ -49,8 +59,8 @@ export default {
 			titlePage: 'Список фраз',
 			phrasesData: [
 				'I want call taxi',
-				'I want call taxi',
-				'I want call taxi',
+				'I want call cops',
+				'I want call Diablo',
 				'I want call taxi',
 			],
 		};
@@ -65,7 +75,28 @@ export default {
 			this.$router.push({
 				query: { 'phrase-cart': i },
 				name: 'phrase-cart',
+				viewable: 'viewable',
 			});
+		},
+
+		inputPhrase(title) {
+			const
+				newPhrase = title.toLowerCase(),
+				phraseContainer = this.$refs.phraseContainers,
+				phrases = this.$refs.title;
+
+			phrases.forEach((phrase, i) => {
+				if (!phrase.innerHTML.toLowerCase().match(newPhrase)) {
+					phraseContainer[i].classList.add('unviewable');
+					phraseContainer[i].classList.remove('viewable');
+				} else {
+					phraseContainer[i].classList.remove('unviewable');
+					phraseContainer[i].classList.add('viewable');
+				}
+			});
+			console.log(newPhrase);
+			console.log(phraseContainer);
+			console.log(phrases);
 		},
 	},
 };
@@ -120,7 +151,7 @@ export default {
 				color #fff
 				font-size 13px
 				border-radius 10px
-				background-color #F1564A
+				background-color var(--red)
 				margin-right 20px
 				border none
 				letter-spacing 1.2px
@@ -140,5 +171,8 @@ export default {
 					background-color #59A4F2
 					border-radius 50%
 					margin-bottom 8px
+
+	.phrases > .viewable
+		display block
 
 </style>

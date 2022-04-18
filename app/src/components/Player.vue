@@ -68,7 +68,7 @@ export default {
 			title: '',
 			image: '',
 			duration: '',
-			currentTime: '',
+			currentTime: '0:00',
 			audioNow: '',
 			status: 'paused',
 		};
@@ -123,27 +123,17 @@ export default {
 			this.status = 'playing';
 			this.$refs.audio.play();
 			this.$root.emitter.emit('player.play');
-			/* eslint-disable no-tabs */
-			// if (this.audioNow === 0) {
-			// 	this.$refs.prev.style = 'opacity: .7';
-			// } else {
-			// 	this.$refs.prev.style = 'opacity: 1';
-			// }
-
-			// if (this.audioNow < this.playList.length - 1) {
-			// 	this.$refs.next.style = 'opacity: 1';
-			// } else {
-			// 	this.$refs.next.style = 'opacity: .7';
-			// }
 		},
 
 		pauseSong() {
 			this.status = 'paused';
 			this.$refs.audio.pause();
 			this.$root.emitter.emit('player.paused', this.status);
+			console.log('payuse');
 		},
 
 		nextSong() {
+			this.pauseSong();
 			if (this.audioNow < this.playList.length - 1) {
 				const
 					thisAudio = this.$refs.audio;
@@ -166,6 +156,20 @@ export default {
 			}
 		},
 
+		opacityButton() {
+			if (this.audioNow === 0) {
+				this.$refs.prev.style = 'opacity: .7';
+			} else {
+				this.$refs.prev.style = 'opacity: 1';
+			}
+
+			if (this.audioNow < this.playList.length - 1) {
+				this.$refs.next.style = 'opacity: 1';
+			} else {
+				this.$refs.next.style = 'opacity: .7';
+			}
+		},
+
 		onTimeupdate() {
 			const
 				fullCurrentTime = this.$refs.audio.currentTime,
@@ -180,6 +184,8 @@ export default {
 				percentProgress = Number((fullCurrentTime / fullDuration).toFixed(2)) * 100;
 
 			progressSlider.style = `left: ${percentProgress > 90 ? 90 : percentProgress}%`;
+
+			this.opacityButton();
 		},
 
 		onEnded() {
@@ -199,20 +205,16 @@ export default {
 				percentProgress = (clickX / width) * 100;
 
 			if (event.target === progressBar || event.target === this.$refs.progressLine) {
-				console.log('~ clickX', event);
-
 				audioSlider.style = `left: ${percentProgress > 90 ? 90 : percentProgress}%`;
 				thisAudio.currentTime = (percentProgress / 100) * audioDuration;
-			} else console.log('жопа');
+			}
 		},
-	},
 
-	mounted() {
-		this.$root.emitter.on('music.play', (status) => {
+		setStatus(status) {
 			this.status = status;
-		});
+		},
 
-		this.$root.emitter.on('music.open', (el) => {
+		openMusic(el) {
 			this.open();
 			this.title = el.playList[el.indexAudio].title;
 			this.image = el.playList[el.indexAudio].image;
@@ -230,11 +232,21 @@ export default {
 			} else {
 				this.pauseSong();
 			}
-		});
+		},
+	},
 
-		this.$root.emitter.on('music.paused', (status) => {
-			this.status = status;
-		});
+	mounted() {
+		this.$root.emitter.on('music.play', this.setStatus);
+
+		this.$root.emitter.on('music.open', this.openMusic);
+
+		this.$root.emitter.on('music.paused', this.setStatus);
+	},
+
+	beforeUnmount() {
+		this.$root.emitter.removeListener('music.play', this.setStatus);
+		this.$root.emitter.removeListener('music.open', this.openMusic);
+		this.$root.emitter.removeListener('music.paused', this.setStatus);
 	},
 
 	components: {
@@ -279,8 +291,8 @@ export default {
 		&__progress
 			width 100%
 			height 13px
-			border-right 2px solid #59A4F2
-			border-left 2px solid #59A4F2
+			border-right 2px solid var(--blue)
+			border-left 2px solid var(--blue)
 			position relative
 			display flex
 			align-items center
@@ -291,14 +303,14 @@ export default {
 				width 25px
 				height @width
 				border-radius 50%
-				border 3px solid #59A4F2
+				border 3px solid var(--blue)
 				left 1px
 				background-color #fff
 
 			&-line
 				width 100%
 				height 3px
-				background-color #59A4F2
+				background-color var(--blue)
 
 		&__timer
 			display flex

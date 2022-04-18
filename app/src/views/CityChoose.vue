@@ -4,7 +4,12 @@
 			:headerTitle="titlePage"
 		></Title>
 		<div class="input-container">
-			<input type="text" class="input">
+			<input
+				type="text"
+				class="input"
+				v-model="citySelect"
+				@input="inputCity(citySelect)"
+			>
 			<img
 				src="../assets/search.svg"
 				alt="иконка поиска"
@@ -15,8 +20,9 @@
 			class="cities-container"
 			v-for="(city, i) in citiesData"
 			:key="city"
+			ref="citiesContainer"
 		>
-			<h2 class="cities-container__title">{{city.title}}</h2>
+			<h2 class="cities-container__title" ref="title">{{city.title}}</h2>
 			<div class="cities-container__slider">
 				<div
 					class="cities-container__slider-item"
@@ -43,6 +49,7 @@ export default {
 	data() {
 		return {
 			titlePage: 'Выберите город',
+			// citySelect: '',
 			citiesData: [
 				{
 					title: 'Москва',
@@ -146,6 +153,27 @@ export default {
 			});
 			console.log('select', i);
 		},
+
+		inputCity(citySelect) {
+			const
+				titles = this.$refs.title,
+				newCitySelect = citySelect.toLowerCase(),
+				ticketsContainer = this.$refs.citiesContainer;
+
+			console.log(newCitySelect);
+
+			titles.forEach((title, index) => {
+				if (!title.innerHTML.toLowerCase().match(newCitySelect)) {
+					ticketsContainer[index].classList.add('unviewable');
+					ticketsContainer[index].classList.remove('viewable');
+				} else {
+					ticketsContainer[index].classList.remove('unviewable');
+					ticketsContainer[index].classList.add('viewable');
+				}
+				console.log(title);
+			});
+			console.log(citySelect, titles);
+		},
 	},
 
 };
@@ -183,7 +211,7 @@ export default {
 
 				&-item
 					margin-right 20px
-					background-color #59A4F2
+					background-color var(--blue)
 					padding 35px 23px 20px 23px
 					border-radius 10px
 
@@ -197,4 +225,8 @@ export default {
 						font-size 16px
 						color #fff
 						font-weight bold
+
+	.cities > .viewable
+		display flex
+
 </style>
